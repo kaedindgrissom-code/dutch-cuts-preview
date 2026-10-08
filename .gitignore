@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+.env
+.env.*
+!.env.example
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+test-results
+playwright-report
+qa/screenshots
+qa/lighthouse
+
+public/_booksy_raw
+qa/lighthouse/ci

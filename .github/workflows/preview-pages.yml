@@ -1,0 +1,47 @@
+# Review preview on GitHub Pages. Runs only in the public mirror repo (GitHub Pages on a
+# private repo needs a paid plan). Builds a static export under /dutch-cuts, fetches the
+# approved photos from their sources, and deploys. The preview is noindex + robots-disallowed.
+name: preview-pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    if: github.repository == 'kaedindgrissom-code/dutch-cuts-preview'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      STATIC_EXPORT: "1"
+      BASE_PATH: /dutch-cuts-preview
+      NEXT_PUBLIC_PREVIEW: "1"
+      NEXT_PUBLIC_SITE_URL: https://kaedindgrissom-code.github.io/dutch-cuts-preview
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: pnpm install
+      - run: pip install --quiet pillow requests && python3 scripts/fetch-photos.py
+      - run: pnpm build
+      - run: rm -rf out/_booksy_raw && touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: out }
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,38 @@
+{
+  "name": "dutch-cuts-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "playwright test",
+    "test:mobile": "playwright test --project=mobile",
+    "typecheck": "tsc --noEmit",
+    "lighthouse": "lighthouse http://localhost:3000 --preset=perf --form-factor=mobile --screenEmulation.mobile --output=html --output-path=qa/lighthouse/report.html",
+    "claims": "node scripts/claims-check.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "lighthouse:ci": "node scripts/lighthouse-ci.mjs",
+    "release-check": "pnpm typecheck && pnpm lint && pnpm build && pnpm claims && pnpm exec playwright test --project=mobile --project=desktop"
+  },
+  "dependencies": {
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.64.0",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "lighthouse": "^13.5.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@10.28.0"
+}
