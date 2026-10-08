@@ -3,14 +3,15 @@ import { shop } from "@/data/shop";
 import { activeBarbers } from "@/data/barbers";
 import { ExtLink } from "@/components/ui/ExtLink";
 import { flags } from "@/config/claims";
+import { Logo } from "@/components/site/Logo";
 
 export function Footer() {
   return (
     <footer className="rule bg-paper">
       <div className="mx-auto grid max-w-site gap-8 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:px-6 lg:px-8">
         <div>
-          <p className="display text-[22px] leading-none">Dutch Cuts</p>
-          <address className="ui mt-3 not-italic text-[14px] leading-relaxed text-ink-2">
+          <Logo variant="lockup" height={76} alt="Dutch Cuts" />
+          <address className="ui mt-5 not-italic text-[14px] leading-relaxed text-ink-2">
             {shop.address.street}
             <br />
             {shop.address.city}, {shop.address.region} {shop.address.postalCode}

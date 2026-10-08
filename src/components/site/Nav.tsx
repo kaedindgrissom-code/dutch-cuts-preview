@@ -7,6 +7,7 @@ import { shop } from "@/data/shop";
 import { BookNowButton } from "@/components/booking/BookButtons";
 import { track } from "@/lib/analytics";
 import { cx } from "@/components/ui/Button";
+import { Logo } from "@/components/site/Logo";
 
 const links = [
   { href: "/barbers", label: "Barbers" },
@@ -58,8 +59,9 @@ export function Nav() {
       )}
     >
       <nav aria-label="Primary" className={cx("mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-200 ease-[var(--ease-out)] md:px-6 lg:px-8", scrolled ? "h-14" : "h-16 md:h-[4.5rem]")}>
-        <Link href="/" className="display text-[22px] leading-none md:text-2xl" aria-label="Dutch Cuts home">
-          Dutch Cuts
+        <Link href="/" className="flex items-center" aria-label="Dutch Cuts home">
+          <Logo variant="lockup-h" height={28} priority className="md:hidden" alt="" />
+          <Logo variant="lockup-h" height={32} priority className="hidden md:block" alt="" />
         </Link>
         <div className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
@@ -99,7 +101,7 @@ export function Nav() {
       >
         <div className="flex h-full flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3">
           <div className="flex h-10 items-center justify-between">
-            <span className="display text-[22px] leading-none">Dutch Cuts</span>
+            <Logo variant="lockup-h" height={26} alt="Dutch Cuts" />
             <button type="button" onClick={() => setOpen(false)} className="ui grid h-11 w-11 place-items-center" aria-label="Close menu">
               <span aria-hidden="true" className="text-2xl leading-none">×</span>
             </button>

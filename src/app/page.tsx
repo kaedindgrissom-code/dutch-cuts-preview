@@ -14,6 +14,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { ExtLink } from "@/components/ui/ExtLink";
 import { PhoneLink } from "@/components/ui/PhoneLink";
 import { Reveal } from "@/components/content/Reveal";
+import { Logo } from "@/components/site/Logo";
 
 export const metadata = pageMeta({
   title: "Dutch Cuts · Barbershop in Savannah, GA",
@@ -40,7 +41,7 @@ export default function HomePage() {
       <section className="relative">
         <Container className="grid gap-6 pt-3 md:grid-cols-12 md:gap-8 md:pt-6 lg:pt-8">
           <div className="order-1 md:order-2 md:col-span-7">
-            <div className="photo grain relative aspect-[4/3] md:aspect-[4/5] lg:aspect-[4/3]">
+            <div className="photo grain relative aspect-[5/6] md:aspect-[4/5] lg:aspect-[4/3]">
               <Image
                 src="/shop/hero-mobile.jpg"
                 alt="Inside Dutch Cuts — the chairs under the hexagon lights at 2816 Bee Rd"
@@ -48,8 +49,13 @@ export default function HomePage() {
                 priority
                 fetchPriority="high"
                 sizes="(min-width:768px) 58vw, 100vw"
-                className="object-cover object-top lg:object-[50%_45%]"
+                className="object-cover object-[50%_55%]"
               />
+              {/* the shop's mark, stamped on the room */}
+              <div className="absolute bottom-3 left-3 bg-paper p-2.5 md:bottom-4 md:left-4 md:p-3" aria-hidden="true">
+                <Logo variant="mark" height={40} alt="" className="md:hidden" />
+                <Logo variant="mark" height={56} alt="" className="hidden md:block" />
+              </div>
             </div>
           </div>
           <div className="order-2 flex flex-col md:order-1 md:col-span-5 md:py-2">
@@ -221,10 +227,13 @@ export default function HomePage() {
 
       {/* FINAL CTA */}
       <section className="mt-section bg-ink text-paper">
-        <Container className="flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-24">
-          <div>
-            <h2 className="display display-2">Book your barber.</h2>
-            <p className="mt-3 text-[18px] text-brick">Live availability is on Booksy. Pick a barber, pick a time.</p>
+        <Container className="flex flex-col gap-8 py-14 md:flex-row md:items-center md:justify-between md:py-24">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-12">
+            <Logo variant="lockup" tone="paper" height={96} alt="Dutch Cuts" className="md:shrink-0" />
+            <div>
+              <h2 className="display display-2">Book your barber.</h2>
+              <p className="mt-3 text-[18px] text-brick">Live availability is on Booksy. Pick a barber, pick a time.</p>
+            </div>
           </div>
           <BookNowButton source="final-cta" variant="inverse" className="md:min-w-44" />
         </Container>

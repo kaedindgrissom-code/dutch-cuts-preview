@@ -29,10 +29,20 @@ export function Portrait({ barber, className, sizes = "(min-width:1024px) 33vw, 
 export function WorkTile({ item, className, sizes = "(min-width:1024px) 25vw, 50vw", tag, priority }: { item: PortfolioItem; className?: string; sizes?: string; tag?: { label: string; by: string }; priority?: boolean }) {
   if (item.src) {
     return (
-      <div className={cx("photo", tag && "photo-hover", className)} style={{ aspectRatio: "4 / 5" }}>
-        <Image src={item.src} alt={item.alt} fill sizes={sizes} className="object-cover" loading={priority ? "eager" : "lazy"} priority={priority} />
+      <div className={className}>
+        <div className={cx("photo", tag && "photo-hover")} style={{ aspectRatio: "4 / 5" }}>
+          <Image src={item.src} alt={item.alt} fill sizes={sizes} className="object-cover" loading={priority ? "eager" : "lazy"} priority={priority} />
+          {tag ? (
+            // pointer devices: slides up over the photo on hover
+            <div className="photo-tag ui text-[12px]" aria-hidden="true">
+              <span className="truncate">{tag.label}</span>
+              <span className="label text-ink-3">{tag.by}</span>
+            </div>
+          ) : null}
+        </div>
         {tag ? (
-          <div className="photo-tag ui text-[12px]" aria-hidden="true">
+          // touch devices: a caption row under the photo, so nothing covers the cut
+          <div className="photo-caption ui text-[12px]" aria-hidden="true">
             <span className="truncate">{tag.label}</span>
             <span className="label text-ink-3">{tag.by}</span>
           </div>
