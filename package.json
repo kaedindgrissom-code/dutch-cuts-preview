@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "playwright test",
     "test:mobile": "playwright test --project=mobile",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "lighthouse": "lighthouse http://localhost:3000 --preset=perf --form-factor=mobile --screenEmulation.mobile --output=html --output-path=qa/lighthouse/report.html",
     "claims": "node scripts/claims-check.mjs",
     "smoke": "node scripts/smoke.mjs",
