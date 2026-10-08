@@ -18,7 +18,8 @@ const archivo = Archivo({
 });
 const serif = Source_Serif_4({
   subsets: ["latin"],
-  axes: ["opsz"],
+  weight: ["400"],
+  style: ["normal"],
   variable: "--font-serif-4",
   display: "swap",
 });

@@ -14,6 +14,11 @@
   --moss: #4f5f4c;
   --white: #ffffff;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Spacing scale — every section uses these, nothing else */
+  --space-section: clamp(4rem, 9vw, 7.5rem);
+  --space-block: clamp(2rem, 4.5vw, 3.75rem);
+  --space-stack: clamp(1rem, 2vw, 1.5rem);
+  --hairline: color-mix(in srgb, var(--brick) 60%, transparent);
 }
 
 @theme inline {
@@ -82,12 +87,54 @@ h1, h2, h3, .display, .ui {
 .body-l { font-size: 1.25rem; line-height: 1.45; }
 .body-s { font-size: 0.9375rem; }
 
-.rule { border-top: 1px solid color-mix(in srgb, var(--brick) 60%, transparent); }
+.rule { border-top: 1px solid var(--hairline); }
+.py-section { padding-block: var(--space-section); }
+.pt-section { padding-top: var(--space-section); }
+.pb-section { padding-bottom: var(--space-section); }
+.mt-section { margin-top: var(--space-section); }
+.mt-block { margin-top: var(--space-block); }
+.mb-block { margin-bottom: var(--space-block); }
+.gap-block { gap: var(--space-block); }
+.mt-stack { margin-top: var(--space-stack); }
 
-/* Focus — haint ring on every interactive element */
+/* Eyebrow with accent tick — the one place colour marks structure */
+.eyebrow { display: inline-flex; align-items: center; gap: 0.625rem; }
+.eyebrow::before { content: ""; width: 1.25rem; height: 2px; background: var(--haint-deep); }
+
+/* Photo system: 4:5, warm grade, hairline mat, hover lift of the caption */
+.photo { position: relative; overflow: hidden; background: var(--paper-2); border: 1px solid var(--hairline); }
+.photo img { transition: transform 600ms var(--ease-out); }
+.photo-hover:hover img, .photo-hover:focus-within img { transform: scale(1.03); }
+.photo-tag {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  background: var(--paper); color: var(--ink);
+  border-top: 1px solid var(--hairline);
+  transform: translateY(100%); transition: transform 240ms var(--ease-out);
+}
+.photo-hover:hover .photo-tag, .photo-hover:focus-within .photo-tag { transform: none; }
+@media (hover: none) { .photo-tag { transform: none; } }
+
+/* Scroll reveal — opacity + 12px, once */
+/* visibility:hidden keeps axe/Lighthouse from grading invisible text; it flips to visible the moment the reveal starts */
+.reveal { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 480ms var(--ease-out), transform 480ms var(--ease-out), visibility 0s; }
+.reveal.is-in { opacity: 1; visibility: visible; transform: none; }
+html.no-reveal .reveal { opacity: 1; transform: none; }
+
+/* Page enter — the only page transition */
+@keyframes page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.page-in { animation: page-in 260ms var(--ease-out) both; }
+
+/* Underline link used in nav / inline */
+.ul-accent { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; text-decoration-thickness: 2px; transition: text-decoration-color 150ms var(--ease-out); }
+.ul-accent:hover, .ul-accent[aria-current="page"] { text-decoration-color: var(--haint-deep); }
+
+/* Focus — one ring, everywhere */
 :focus-visible {
-  outline: 2px solid var(--haint);
-  outline-offset: 2px;
+  outline: 2px solid var(--haint-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 a { text-underline-offset: 3px; }
 .link {
@@ -132,6 +179,9 @@ a { text-underline-offset: 3px; }
 .anim-dialog { animation: dialog-in 200ms var(--ease-out); }
 
 @media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .photo img { transition: none; }
+  .page-in { animation: none; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

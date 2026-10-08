@@ -5,7 +5,7 @@ import { portfolioFor } from "@/data/portfolio";
 import { shop } from "@/data/shop";
 import { pageMeta, personJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { daysSummary, asOf } from "@/lib/hours";
-import { Container, JsonLd } from "@/components/content/Section";
+import { Container, JsonLd, Eyebrow } from "@/components/content/Section";
 import { Portrait } from "@/components/ui/Placeholder";
 import { RatingLine } from "@/components/content/RatingLine";
 import { ServiceTable } from "@/components/content/ServiceTable";
@@ -45,26 +45,38 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
       <JsonLd data={[personJsonLd(b), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Barbers", path: "/barbers" }, { name: b.publicName, path: `/barbers/${b.slug}` }])]} />
       <TrackView event="barber_view" props={{ barber: b.slug }} />
 
-      <Container className="pt-4 md:pt-10">
+      <Container className="pt-4 md:pt-8">
         <nav aria-label="Breadcrumb" className="ui text-[13px] text-ink-3">
-          <Link href="/barbers" className="hover:text-ink">Barbers</Link> <span aria-hidden="true">/</span> {b.publicName}
+          <Link href="/barbers" className="ul-accent hover:text-ink">Barbers</Link> <span aria-hidden="true">/</span> {b.publicName}
         </nav>
-        <div className="mt-4 grid gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-12 lg:gap-16">
-          <div>
+        <div className="mt-4 grid gap-8 md:grid-cols-12 md:gap-10 lg:gap-14">
+          <div className="md:col-span-5">
             <Portrait barber={b} priority sizes="(min-width:768px) 40vw, 100vw" />
           </div>
-          <div className="md:pt-4">
-            <h1 className="display display-1 break-words" style={{ fontSize: "clamp(3rem, 9vw, 7rem)" }}>
-              {b.publicName}
-            </h1>
-            <p className="label mt-3 text-ink-3">
-              {b.professionalName} @ Dutch Cuts{b.role.startsWith("Owner") ? " · Owner" : ""}
-            </p>
-            <RatingLine stats={b.reviewStats[0]} className="mt-3" />
-            <p className="body-l mt-6 text-ink-2">{b.intro}</p>
+          <div className="md:col-span-7 md:pt-2">
+            <Eyebrow>
+              {b.professionalName}
+              {b.role.startsWith("Owner") ? " · Owner" : ""}
+            </Eyebrow>
+            <h1 className="display mt-4 break-words text-[clamp(3rem,13vw,4.6rem)] md:text-[clamp(3.2rem,6vw,6rem)]">{b.publicName}</h1>
+            <p className="body-l mt-5 text-ink-2">{b.intro}</p>
             <p className="mt-4">
               <span className="ui font-semibold">Known for:</span> {b.specialties.join(", ").toLowerCase()}.
             </p>
+            <dl className="rule mt-6 grid grid-cols-3 gap-3 pt-5">
+              <div>
+                <dt className="label text-ink-3">Rating</dt>
+                <dd className="mt-1"><RatingLine stats={b.reviewStats[0]} compact /></dd>
+              </div>
+              <div>
+                <dt className="label text-ink-3">Cuts from</dt>
+                <dd className="price mt-1 text-[17px]">${fromPrice(b)}</dd>
+              </div>
+              <div>
+                <dt className="label text-ink-3">Days</dt>
+                <dd className="ui mt-1 text-[15px]">{daysSummary(b.hours)}</dd>
+              </div>
+            </dl>
             <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
               <BookBarberButton barber={b} source="barber-page" label={`Book with ${shortName(b)} on Booksy`} />
               {b.socials.instagram ? (
@@ -74,19 +86,24 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
               ) : null}
             </div>
             {b.policies.length ? (
-              <ul className="ui mt-4 space-y-1 text-[13px] leading-relaxed text-ink-3">
-                {b.policies.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
+              <aside className="mt-6 border border-[var(--hairline)] bg-paper-2 p-4" aria-labelledby="policies-h">
+                <h2 id="policies-h" className="label text-ink-3">
+                  Before you book
+                </h2>
+                <ul className="mt-2 space-y-1 text-[15px] leading-relaxed text-ink-2">
+                  {b.policies.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              </aside>
             ) : null}
           </div>
         </div>
       </Container>
 
-      <Container className="mt-14 grid gap-14 md:mt-20 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-16">
-        <section aria-labelledby="services-h">
-          <h2 id="services-h" className="label text-ink-3">
+      <Container className="mt-section grid gap-block md:grid-cols-12 md:gap-10 lg:gap-14">
+        <section aria-labelledby="services-h" className="md:col-span-7">
+          <h2 id="services-h" className="label eyebrow text-ink-3">
             Services · as of {asOf(shop.verifiedAt)}
           </h2>
           <div className="mt-4">
@@ -96,38 +113,35 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
             Exact prices, deposits and the live calendar are on {shortName(b)}&rsquo;s Booksy page.
           </p>
         </section>
-        <section aria-labelledby="hours-h">
-          <h2 id="hours-h" className="label text-ink-3">
+        <section aria-labelledby="hours-h" className="md:col-span-5">
+          <h2 id="hours-h" className="label eyebrow text-ink-3">
             Hours
           </h2>
           <div className="mt-4">
             <HoursList hours={b.hours} />
           </div>
           <p className="ui mt-4 text-[13px] text-ink-3">Holiday closures show on Booksy.</p>
-          <h2 className="label mt-10 text-ink-3">Where</h2>
-          <p className="mt-3 text-ink-2">
-            Dutch Cuts, {shop.address.street}, {shop.address.city}, {shop.address.region} {shop.address.postalCode}.{" "}
-            <Link href="/visit" className="link">
-              Directions and parking
-            </Link>
+          <p className="ui mt-4 text-[13px] text-ink-3">
+            <Link href="/visit" className="ul-accent">Directions and parking</Link>
           </p>
         </section>
       </Container>
 
-      <section className="mt-14 md:mt-20" aria-labelledby="work-h">
-        <Container className="mb-4">
-          <h2 id="work-h" className="label text-ink-3">
-            {shortName(b)}&rsquo;s work
+      <section className="mt-section" aria-labelledby="work-h">
+        <Container className="mb-5">
+          <p className="label eyebrow text-ink-3">The work</p>
+          <h2 id="work-h" className="display display-3 mt-3">
+            Recent cuts by {shortName(b)}
           </h2>
         </Container>
         <Container>
-          <PortfolioGrid items={work} showFilters={false} columns="2-3" />
+          <PortfolioGrid items={work} showFilters={false} columns="2-4" />
         </Container>
       </section>
 
-      <Container className="mt-14 md:mt-20">
+      <Container className="mt-section">
         <section aria-labelledby="reviews-h">
-          <h2 id="reviews-h" className="label text-ink-3">
+          <h2 id="reviews-h" className="label eyebrow text-ink-3">
             What clients say
           </h2>
           <p className="mt-3 text-ink-2">Themes across reviews: {b.reviewThemes.join(" · ").toLowerCase()}.</p>
@@ -145,15 +159,15 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
           ) : null}
         </section>
 
-        <section className="rule mt-14 pt-8 md:mt-20" aria-labelledby="others-h">
-          <h2 id="others-h" className="label text-ink-3">
+        <section className="rule mt-block pt-8" aria-labelledby="others-h">
+          <h2 id="others-h" className="label eyebrow text-ink-3">
             Also at Dutch Cuts
           </h2>
           <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {others.map((o) => (
               <li key={o.slug} className="flex items-center gap-4">
                 <Link href={`/barbers/${o.slug}`} className="shrink-0" aria-label={`${o.publicName} — profile`}>
-                  <Portrait barber={o} className="w-16" sizes="64px" />
+                  <Portrait barber={o} className="w-20" sizes="80px" />
                 </Link>
                 <div className="min-w-0">
                   <Link href={`/barbers/${o.slug}`} className="display block text-[26px] leading-none hover:text-haint-deep">
@@ -166,7 +180,7 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
           </ul>
         </section>
 
-        <div className="rule mt-14 flex flex-col gap-4 py-10 sm:flex-row sm:items-center sm:justify-between md:mt-20">
+        <div className="rule mt-block flex flex-col gap-4 py-10 pb-section sm:flex-row sm:items-center sm:justify-between">
           <p className="display display-3">Ready? {shortName(b)} books on Booksy.</p>
           <BookBarberButton barber={b} source="barber-page-bottom" />
         </div>

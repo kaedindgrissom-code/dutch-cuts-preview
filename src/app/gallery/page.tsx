@@ -17,13 +17,13 @@ export default function GalleryPage() {
       <Container className="pt-6 md:pt-12">
         <Eyebrow>Gallery</Eyebrow>
         <h1 className="display display-2 mt-4">The work</h1>
-        <p className="body-l mt-4 max-w-[34rem] text-ink-2">Recent cuts from the chair. Tap any photo to see the barber.</p>
+        <p className="body-l mt-4 max-w-[34rem] text-ink-2">Recent cuts from the chairs. Filter by barber or cut, tap any photo to see it large and book the barber who did it.</p>
       </Container>
       <Container className="mt-8">
         <PortfolioGrid items={portfolio} />
       </Container>
-      <Container className="mt-12 flex flex-col gap-4 pb-16 sm:flex-row sm:items-center md:pb-24">
-        <p className="display display-3">Like what you see?</p>
+      <Container className="rule mt-block flex flex-col gap-4 pb-section pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="display display-3">Like what you see? Book the barber.</p>
         <BookNowButton source="gallery" />
       </Container>
     </>

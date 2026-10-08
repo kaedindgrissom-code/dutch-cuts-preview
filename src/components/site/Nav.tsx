@@ -57,7 +57,7 @@ export function Nav() {
         scrolled && "shadow-[0_1px_0_0_color-mix(in_srgb,var(--brick)_60%,transparent)]",
       )}
     >
-      <nav aria-label="Primary" className="mx-auto flex h-16 max-w-site items-center justify-between px-4 md:px-6 lg:px-8">
+      <nav aria-label="Primary" className={cx("mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-200 ease-[var(--ease-out)] md:px-6 lg:px-8", scrolled ? "h-14" : "h-16 md:h-[4.5rem]")}>
         <Link href="/" className="display text-[22px] leading-none md:text-2xl" aria-label="Dutch Cuts home">
           Dutch Cuts
         </Link>
@@ -67,12 +67,12 @@ export function Nav() {
               key={l.href}
               href={l.href}
               aria-current={pathname === l.href || pathname.startsWith(l.href + "/") ? "page" : undefined}
-              className="ui text-[15px] text-ink hover:text-haint-deep aria-[current=page]:underline aria-[current=page]:decoration-haint aria-[current=page]:underline-offset-[6px]"
+              className="ui ul-accent text-[15px] text-ink"
             >
               {l.label}
             </Link>
           ))}
-          <a href={`tel:${shop.phone}`} onClick={() => track("phone_click", { location: "nav" })} className="ui text-[15px] text-ink hover:text-haint-deep">
+          <a href={`tel:${shop.phone}`} onClick={() => track("phone_click", { location: "nav" })} className="ui ul-accent text-[15px] text-ink">
             {shop.phoneDisplay}
           </a>
           <BookNowButton source="nav" size="sm" />
@@ -107,7 +107,7 @@ export function Nav() {
           <ul className="mt-8 flex flex-col">
             {[{ href: "/", label: "Home" }, ...links].map((l) => (
               <li key={l.href} className="rule">
-                <Link href={l.href} className="display block py-4 text-[44px] leading-none" aria-current={pathname === l.href ? "page" : undefined}>
+                <Link href={l.href} className="display flex items-center justify-between py-4 text-[44px] leading-none aria-[current=page]:text-haint-deep" aria-current={pathname === l.href ? "page" : undefined}>
                   {l.label}
                 </Link>
               </li>

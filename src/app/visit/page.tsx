@@ -19,7 +19,7 @@ export default function VisitPage() {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Visit", path: "/visit" }])} />
-      <div className="relative aspect-[13/10] w-full overflow-hidden bg-paper-2 md:hidden">
+      <div className="photo relative aspect-[13/10] w-full md:hidden">
         <Image src="/shop/lounge.jpg" alt="The lounge at Dutch Cuts" fill priority sizes="100vw" className="object-cover" />
       </div>
       <Container className="pt-6 md:pt-12">
@@ -41,7 +41,7 @@ export default function VisitPage() {
                 Call {shop.phoneDisplay}
               </PhoneLink>
             </div>
-            <div className="relative mt-6 hidden aspect-[3/2] w-full overflow-hidden bg-paper-2 md:block">
+            <div className="photo relative mt-6 hidden aspect-[3/2] w-full md:block">
               <Image src="/shop/lounge.jpg" alt="The lounge at Dutch Cuts" fill sizes="50vw" className="object-cover" />
             </div>
             <p className="mt-4">
@@ -52,7 +52,7 @@ export default function VisitPage() {
           </div>
 
           <div>
-            <h2 className="label text-ink-3">Hours by barber</h2>
+            <h2 className="label eyebrow text-ink-3">Hours by barber</h2>
             <p className="mt-3 text-ink-2">{shop.generalHoursLine}</p>
             <div className="mt-4">
               {activeBarbers.map((b) => (
@@ -79,7 +79,7 @@ export default function VisitPage() {
             </div>
             <p className="ui mt-3 text-[13px] text-ink-3">Holiday closures and same-day changes show on each barber&rsquo;s Booksy page.</p>
 
-            <h2 className="label mt-10 text-ink-3">Contact</h2>
+            <h2 className="label eyebrow mt-10 text-ink-3">Contact</h2>
             <p className="display mt-3 text-[30px] leading-none">
               <PhoneLink location="visit-contact" className="hover:text-haint-deep">
                 {shop.phoneDisplay}
@@ -107,7 +107,7 @@ export default function VisitPage() {
               ) : null}
             </ul>
 
-            <h2 className="label mt-10 text-ink-3">Good to know</h2>
+            <h2 className="label eyebrow mt-10 text-ink-3">Good to know</h2>
             <ul className="mt-3 space-y-2 text-ink-2">
               <li>Booking is the sure thing — walk-in space depends on the day.</li>
               <li>Each barber has his own cancellation policy; arriving 15 minutes late can mean losing the slot.</li>
@@ -115,7 +115,7 @@ export default function VisitPage() {
             </ul>
           </div>
         </div>
-        <div className="pb-16 md:pb-24" />
+        <div className="pb-section" />
       </Container>
     </>
   );

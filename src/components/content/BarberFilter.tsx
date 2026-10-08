@@ -26,7 +26,7 @@ export function BarberFilter() {
       <p className="ui mt-3 text-[13px] text-ink-3" aria-live="polite">
         {tag ? `${list.length} of ${activeBarbers.length} barbers offer ${tagLabels[tag].toLowerCase()}.` : `All ${activeBarbers.length} barbers.`}
       </p>
-      <div className="mt-8 grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <div className="mt-block grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
         {list.map((b, i) => (
           <BarberCard key={b.slug} barber={b} source="barbers" priority={i === 0} />
         ))}
@@ -41,7 +41,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={cx("ui h-10 rounded-[2px] border px-3.5 text-[14px] transition-colors duration-150", active ? "border-ink bg-ink text-paper" : "border-brick text-ink hover:border-ink")}
+      className={cx("ui h-10 rounded-[2px] border px-3.5 text-[14px] transition-colors duration-150", active ? "border-ink bg-ink text-paper" : "border-brick text-ink hover:border-ink hover:bg-paper-2")}
     >
       {children}
     </button>

@@ -6,8 +6,8 @@ import { flags } from "@/config/claims";
 
 export function Footer() {
   return (
-    <footer className="rule mt-8 bg-paper">
-      <div className="mx-auto grid max-w-site gap-8 px-4 py-10 md:grid-cols-[1.4fr_1fr_1fr] md:px-6 lg:px-8">
+    <footer className="rule bg-paper">
+      <div className="mx-auto grid max-w-site gap-8 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:px-6 lg:px-8">
         <div>
           <p className="display text-[22px] leading-none">Dutch Cuts</p>
           <address className="ui mt-3 not-italic text-[14px] leading-relaxed text-ink-2">
@@ -22,24 +22,24 @@ export function Footer() {
           <p className="ui mt-3 text-[13px] text-ink-3">{shop.generalHoursLine}</p>
         </div>
         <div>
-          <p className="label text-ink-3">Barbers</p>
+          <p className="label eyebrow text-ink-3">Barbers</p>
           <ul className="ui mt-3 space-y-2 text-[15px]">
             {activeBarbers.map((b) => (
               <li key={b.slug}>
-                <Link href={`/barbers/${b.slug}`} className="hover:text-haint-deep">
+                <Link href={`/barbers/${b.slug}`} className="ul-accent">
                   {b.publicName}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/barbers" className="hover:text-haint-deep">
+              <Link href="/barbers" className="ul-accent">
                 Find your barber
               </Link>
             </li>
           </ul>
         </div>
         <div>
-          <p className="label text-ink-3">Follow</p>
+          <p className="label eyebrow text-ink-3">Follow</p>
           <ul className="ui mt-3 space-y-2 text-[15px]">
             {shop.socials.instagram && (
               <li>

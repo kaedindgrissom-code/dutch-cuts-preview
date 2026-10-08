@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { PortfolioItem, ServiceTag } from "@/data/types";
-import { activeBarbers, tagLabels } from "@/data/barbers";
+import { activeBarbers, tagLabels, shortName } from "@/data/barbers";
 import { track } from "@/lib/analytics";
 import { cx } from "@/components/ui/Button";
 import { WorkTile } from "@/components/ui/Placeholder";
@@ -69,7 +69,7 @@ export function PortfolioGrid({ items, showFilters = true, columns = "2-4" }: { 
           </Chip>
           {activeBarbers.map((b) => (
             <Chip key={b.slug} active={filter.kind === "barber" && filter.slug === b.slug} onClick={() => { setFilter({ kind: "barber", slug: b.slug }); engage("filter"); }}>
-              {b.publicName.split(" ")[0] === "Eric" ? "Rod" : b.publicName.split(" ")[0]}
+              {shortName(b)}
             </Chip>
           ))}
           {tagFilters.map((t) => (
@@ -80,21 +80,30 @@ export function PortfolioGrid({ items, showFilters = true, columns = "2-4" }: { 
         </div>
       ) : null}
 
-      <ul className={cx("grid gap-0.5", columns === "2-4" ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-2 md:grid-cols-3")} data-testid="portfolio-grid">
-        {visible.map((item, i) => (
-          <li key={item.id}>
-            <button
-              type="button"
-              onClick={() => { setOpenIdx(i); engage("open"); }}
-              className="block w-full text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-haint"
-              aria-label={`${item.alt} — open larger`}
-            >
-              <WorkTile item={item} />
-            </button>
-          </li>
-        ))}
+      <ul className={cx("grid gap-2 md:gap-3", columns === "2-4" ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4")} data-testid="portfolio-grid">
+        {visible.map((item, i) => {
+          const by = activeBarbers.find((b) => b.slug === item.barberSlug);
+          return (
+            <li key={item.id}>
+              <button
+                type="button"
+                onClick={() => { setOpenIdx(i); engage("open"); }}
+                className="block w-full text-left"
+                aria-label={`${item.alt} — open larger`}
+              >
+                <WorkTile item={item} tag={{ label: item.tags.map((t) => tagLabels[t]).join(" · "), by: by ? shortName(by) : "" }} priority={i < 4} sizes={columns === "2-4" ? "(min-width:1024px) 25vw, (min-width:768px) 33vw, 50vw" : "(min-width:1024px) 25vw, (min-width:768px) 33vw, 50vw"} />
+              </button>
+            </li>
+          );
+        })}
       </ul>
-      {visible.length === 0 ? <p className="py-8 text-ink-2">Nothing tagged that way yet.</p> : null}
+      {visible.length === 0 ? (
+        <div className="rule mt-4 py-10 text-center">
+          <p className="display text-[28px]">Nothing tagged that way yet.</p>
+          <p className="mt-2 text-ink-2">Try another filter, or see everything.</p>
+          <button type="button" onClick={() => setFilter({ kind: "all" })} className="ui mt-4 ul-accent text-[15px]">Show all</button>
+        </div>
+      ) : null}
 
       <dialog
         ref={dialogRef}
@@ -104,7 +113,7 @@ export function PortfolioGrid({ items, showFilters = true, columns = "2-4" }: { 
       >
         {current ? (
           <div className="anim-dialog relative flex max-h-full w-full max-w-3xl flex-col gap-3 p-4">
-            <div className="relative mx-auto w-full overflow-hidden bg-paper-2" style={{ aspectRatio: "1 / 1", maxHeight: "70dvh" }}>
+            <div className="relative mx-auto w-full overflow-hidden bg-ink" style={{ aspectRatio: "4 / 5", maxHeight: "74dvh" }}>
               {current.src ? (
                 <Image src={current.src} alt={current.alt} fill sizes="(min-width:768px) 48rem, 100vw" className="object-contain" />
               ) : (
@@ -118,7 +127,7 @@ export function PortfolioGrid({ items, showFilters = true, columns = "2-4" }: { 
                   <>
                     {" · "}
                     <Link href={`/barbers/${currentBarber.slug}`} className="underline decoration-haint underline-offset-4">
-                      Book {currentBarber.publicName.split(" ")[0] === "Eric" ? "Rod" : currentBarber.publicName.split(" ")[0]}
+                      Book {shortName(currentBarber)}
                     </Link>
                   </>
                 ) : null}

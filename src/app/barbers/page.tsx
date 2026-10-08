@@ -17,9 +17,9 @@ export default function BarbersPage() {
         <Eyebrow>The team</Eyebrow>
         <h1 className="display display-2 mt-4">Find your barber</h1>
         <p className="body-l mt-4 max-w-[36rem] text-ink-2">
-          Three barbers, each with his own chair, book and prices. Filter by what you need.
+          Three barbers, each with his own chair, book and prices. Filter by what you need, then book the one that fits.
         </p>
-        <div className="mt-8 pb-16 md:pb-24">
+        <div className="mt-8 pb-section">
           <BarberFilter />
         </div>
       </Container>
