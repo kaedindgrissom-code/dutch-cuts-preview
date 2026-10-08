@@ -9,7 +9,7 @@ export const shop: Shop = {
   legalName: "Dutch Cuts LLC",
   slogan: "Modern fades and blends on Bee Road.",
   description:
-    "Dutch Cuts is a modern barbering studio in Savannah, Georgia. Three barbers, one chair each, never rushed — fades, tapers, beards, kids and house calls, booked on Booksy.",
+    "Dutch Cuts is a modern barbering studio in Savannah, Georgia. Three barbers, each with his own chair — fades, tapers, beards, kids and house calls, booked on Booksy.",
   address: {
     street: "2816 Bee Rd",
     city: "Savannah",

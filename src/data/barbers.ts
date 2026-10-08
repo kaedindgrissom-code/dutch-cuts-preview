@@ -13,7 +13,7 @@ export const barbers: Barber[] = [
     professionalName: "Dutch Francisco",
     role: "Owner & barber",
     intro:
-      "Dutch opened Dutch Cuts after cutting in Minneapolis and Hawaii, and has been in Savannah since 2022. Precision fades and blends, straight-razor finish, any type of hair welcome.",
+      "Dutch is from Hawaii, cut in Minneapolis, and has been in Savannah since 2022, where he opened Dutch Cuts. Precision fades and blends, straight-razor finish, any type of hair welcome.",
     knownFor: "Modern fades and blends, precision work, athletes. Straight-razor finish on every cut.",
     specialties: ["Modern fades & blends", "Precision cutting", "Athletes", "Straight-razor edge finish", "Designs"],
     tags: ["fade", "beard", "kids", "house-call"],
@@ -65,7 +65,7 @@ export const barbers: Barber[] = [
     role: "Barber",
     intro:
       "Clean fades, precise cuts and consistent quality every time. New clients are always welcome. Every appointment is one-on-one and never rushed.",
-    knownFor: "Clean fades and longer-hair cuts. Great with kids and toddlers. One-on-one, never rushed.",
+    knownFor: "Clean fades and longer-hair cuts. Kids and toddlers welcome. One-on-one, never rushed.",
     specialties: ["Clean fades", "Longer hair & flow cuts", "Beard sculpting", "Kids & toddlers", "Eyebrows"],
     tags: ["fade", "beard", "kids", "longer-hair", "line-up", "house-call"],
     services: [

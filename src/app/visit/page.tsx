@@ -11,7 +11,7 @@ import { TodayHours } from "@/components/content/TodayHours";
 
 export const metadata = pageMeta({
   title: "Visit · 2816 Bee Rd, Savannah",
-  description: `Dutch Cuts is at ${shop.address.street}, ${shop.address.city}, ${shop.address.region} ${shop.address.postalCode}, just south of Victory Dr near Skidaway Rd. Parking on site. Hours by barber, directions and phone.`,
+  description: `Dutch Cuts is at ${shop.address.street}, ${shop.address.city}, ${shop.address.region} ${shop.address.postalCode}, just south of Victory Dr. Parking on site. Hours by barber, directions and phone.`,
   path: "/visit",
 });
 
@@ -31,7 +31,7 @@ export default function VisitPage() {
               {shop.address.city}, {shop.address.region} {shop.address.postalCode}
             </p>
             <p className="mt-4 text-ink-2">
-              Just south of E Victory Dr near Skidaway Rd — a few minutes from Midtown, Ardsley Park and Savannah State, and an easy drive from Thunderbolt, Whitemarsh, Wilmington and Dutch Island. Parking on site.
+              On Bee Rd just south of E Victory Dr — a few minutes from Midtown, Ardsley Park and Savannah State, and an easy drive from Thunderbolt, Whitemarsh, Wilmington and Dutch Island. Parking on site.
             </p>
             <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
               <ExtLink href={directionsUrl} event="directions_click" props={{ location: "visit" }} plain className="ui inline-flex h-12 items-center justify-center rounded-[2px] bg-ink px-5 text-[15px] text-paper hover:bg-haint-deep">

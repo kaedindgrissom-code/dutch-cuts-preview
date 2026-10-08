@@ -69,7 +69,7 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
                 <dd className="mt-1"><RatingLine stats={b.reviewStats[0]} compact /></dd>
               </div>
               <div>
-                <dt className="label text-ink-3">Cuts from</dt>
+                <dt className="label text-ink-3">From</dt>
                 <dd className="price mt-1 text-[17px]">${fromPrice(b)}</dd>
               </div>
               <div>
@@ -122,7 +122,7 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
           </div>
           <p className="ui mt-4 text-[13px] text-ink-3">Holiday closures show on Booksy.</p>
           <p className="ui mt-4 text-[13px] text-ink-3">
-            <Link href="/visit" className="ul-accent">Directions and parking</Link>
+            <Link href="/visit" className="underline decoration-haint underline-offset-4 hover:text-haint-deep">Directions and parking</Link>
           </p>
         </section>
       </Container>

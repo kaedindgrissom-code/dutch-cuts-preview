@@ -40,7 +40,7 @@ export default function HomePage() {
       <section className="relative">
         <Container className="grid gap-6 pt-3 md:grid-cols-12 md:gap-8 md:pt-6 lg:pt-8">
           <div className="order-1 md:order-2 md:col-span-7">
-            <div className="photo grain relative aspect-[4/3] md:aspect-square lg:aspect-[5/4]">
+            <div className="photo grain relative aspect-[4/3] md:aspect-[4/5] lg:aspect-[4/3]">
               <Image
                 src="/shop/hero-mobile.jpg"
                 alt="Inside Dutch Cuts — the chairs under the hexagon lights at 2816 Bee Rd"
@@ -48,7 +48,7 @@ export default function HomePage() {
                 priority
                 fetchPriority="high"
                 sizes="(min-width:768px) 58vw, 100vw"
-                className="object-cover object-top"
+                className="object-cover object-top lg:object-[50%_45%]"
               />
             </div>
           </div>
@@ -56,13 +56,13 @@ export default function HomePage() {
             <Eyebrow>
               {shop.address.street} · {shop.address.city}, {shop.address.region}
             </Eyebrow>
-            <h1 className="display mt-5 text-[clamp(3rem,13vw,4.6rem)] md:text-[clamp(2.75rem,5vw,5.5rem)]">
+            <h1 className="display mt-5 text-[clamp(3rem,13vw,4.6rem)] md:text-[clamp(2.5rem,4.6vw,5.5rem)]">
               Fades &amp; blends
               <br />
               on Bee Road.
             </h1>
             <p className="body-l mt-5 max-w-[26rem] text-ink-2">
-              Three barbers, one chair each, never rushed. Pick the right one below and book straight on Booksy.
+              Three barbers, each with his own chair and his own book. Pick the right one below and book straight on Booksy.
             </p>
             <div className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
               <BookNowButton source="hero" className="sm:min-w-40" />
@@ -70,22 +70,25 @@ export default function HomePage() {
                 Meet the barbers
               </ButtonLink>
             </div>
-            <dl className="rule mt-8 grid grid-cols-3 gap-3 pt-5 md:mt-auto">
+            <dl className="rule mt-8 grid grid-cols-3 gap-2 pt-5 sm:gap-3 md:mt-auto">
               <div>
                 <dt className="label text-ink-3">Booksy</dt>
-                <dd className="price mt-1 text-[17px]">
-                  <span aria-hidden="true" className="text-haint-deep">★</span> {booksy.rating} <span className="ui text-[13px] font-normal text-ink-3">({booksy.count})</span>
+                <dd className="price mt-1 whitespace-nowrap text-[16px] sm:text-[17px]">
+                  <span aria-hidden="true" className="text-haint-deep">★</span> {booksy.rating} <span className="ui text-[12px] font-normal text-ink-3 sm:text-[13px]">({booksy.count})</span>
                 </dd>
               </div>
               <div>
                 <dt className="label text-ink-3">Google</dt>
-                <dd className="price mt-1 text-[17px]">
+                <dd className="price mt-1 whitespace-nowrap text-[16px] sm:text-[17px]">
                   <span aria-hidden="true" className="text-haint-deep">★</span> {google.rating.toFixed(1)}
                 </dd>
               </div>
               <div>
                 <dt className="label text-ink-3">Open</dt>
-                <dd className="ui mt-1 text-[15px] leading-tight">Mon–Sat, Sundays with Rod</dd>
+                <dd className="ui mt-1 text-[15px] leading-tight">
+                  Mon–Sat
+                  <span className="block text-[13px] text-ink-3">Sundays: Rod</span>
+                </dd>
               </div>
             </dl>
           </div>
@@ -116,12 +119,12 @@ export default function HomePage() {
 
       {/* THE WORK */}
       <section className="pt-section">
-        <Container className="mb-5 flex items-end justify-between">
+        <Container className="mb-5 flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <Eyebrow>The work</Eyebrow>
             <h2 className="display display-3 mt-3">Recent cuts from the chairs</h2>
           </div>
-          <Link href="/gallery" className="ui ul-accent text-[15px]">
+          <Link href="/gallery" className="ui ul-accent shrink-0 whitespace-nowrap text-[15px] sm:pb-1">
             See the gallery
           </Link>
         </Container>
@@ -158,9 +161,12 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="md:col-span-5">
-            <div className="photo relative aspect-[4/5]">
-              <Image src="/shop/hero-desktop.jpg" alt="A barber at work inside Dutch Cuts" fill sizes="(min-width:768px) 40vw, 100vw" className="object-cover" />
+          <div className="relative md:col-span-5 md:min-h-[28rem]">
+            {/* On md+ the photo stretches to the height of the text column so the two columns end together */}
+            <div className="md:absolute md:inset-0">
+              <div className="photo relative aspect-[4/5] md:h-full md:aspect-auto">
+                <Image src="/shop/hero-desktop.jpg" alt="A barber at work inside Dutch Cuts" fill sizes="(min-width:768px) 40vw, 100vw" className="object-cover" />
+              </div>
             </div>
           </div>
         </div>
@@ -171,7 +177,7 @@ export default function HomePage() {
         <div className="grid gap-block lg:grid-cols-2 lg:gap-20">
           <div>
             <Eyebrow>Services</Eyebrow>
-            <h2 className="display display-2 mt-4">What a cut costs</h2>
+            <h2 className="display mt-4 text-[clamp(2.25rem,4.5vw,4rem)]">What a cut costs</h2>
             <p className="mt-4 text-ink-2">Prices are set by each barber. Ranges below, as of {asOf(shop.verifiedAt)}.</p>
             <table className="mt-6 w-full">
               <tbody>
@@ -193,9 +199,9 @@ export default function HomePage() {
           </div>
           <div>
             <Eyebrow>Visit</Eyebrow>
-            <h2 className="display display-2 mt-4">2816 Bee Road</h2>
+            <h2 className="display mt-4 text-[clamp(2.25rem,4.5vw,4rem)]">2816 Bee Road</h2>
             <p className="mt-4 text-ink-2">
-              {shop.address.city}, {shop.address.region} {shop.address.postalCode} · Just south of Victory Dr near Skidaway Rd. Parking on site.
+              {shop.address.city}, {shop.address.region} {shop.address.postalCode} · On Bee Rd just south of Victory Dr. Parking on site.
             </p>
             <p className="mt-2 text-ink-2">{shop.generalHoursLine}</p>
             <Link href="/visit" className="photo mt-6 block aspect-[16/10]" aria-label="See the shop, map and directions">

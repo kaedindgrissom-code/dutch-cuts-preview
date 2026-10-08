@@ -114,7 +114,7 @@ h1, h2, h3, .display, .ui {
   transform: translateY(100%); transition: transform 240ms var(--ease-out);
 }
 .photo-hover:hover .photo-tag, .photo-hover:focus-within .photo-tag { transform: none; }
-@media (hover: none) { .photo-tag { transform: none; } }
+@media (hover: none) { .photo-tag { transform: none; transition: none; } }
 
 /* Scroll reveal — opacity + 12px, once */
 /* visibility:hidden keeps axe/Lighthouse from grading invisible text; it flips to visible the moment the reveal starts */
