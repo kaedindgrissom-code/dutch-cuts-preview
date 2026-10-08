@@ -101,8 +101,8 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
         </div>
       </Container>
 
-      <Container className="mt-section grid gap-block md:grid-cols-12 md:gap-10 lg:gap-14">
-        <section aria-labelledby="services-h" className="md:col-span-7">
+      <Container className="mt-section grid gap-block lg:grid-cols-12 lg:gap-14">
+        <section aria-labelledby="services-h" className="lg:col-span-7">
           <h2 id="services-h" className="label eyebrow text-ink-3">
             Services · as of {asOf(shop.verifiedAt)}
           </h2>
@@ -113,7 +113,7 @@ export default async function BarberPage({ params }: PageProps<"/barbers/[slug]"
             Exact prices, deposits and the live calendar are on {shortName(b)}&rsquo;s Booksy page.
           </p>
         </section>
-        <section aria-labelledby="hours-h" className="md:col-span-5">
+        <section aria-labelledby="hours-h" className="lg:col-span-5">
           <h2 id="hours-h" className="label eyebrow text-ink-3">
             Hours
           </h2>

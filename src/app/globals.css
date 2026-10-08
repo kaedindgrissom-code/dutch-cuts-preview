@@ -15,7 +15,7 @@
   --white: #ffffff;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   /* Spacing scale — every section uses these, nothing else */
-  --space-section: clamp(4rem, 9vw, 7.5rem);
+  --space-section: clamp(4rem, 9vw, 7.5rem); /* CodyFrame-style: roughly 1.5× from phone to desktop */
   --space-block: clamp(2rem, 4.5vw, 3.75rem);
   --space-stack: clamp(1rem, 2vw, 1.5rem);
   --hairline: color-mix(in srgb, var(--brick) 60%, transparent);
@@ -35,7 +35,8 @@
   --font-display: var(--font-archivo), "Archivo Narrow", "Arial Narrow", sans-serif;
   --font-ui: var(--font-archivo), Archivo, system-ui, sans-serif;
   --font-serif: var(--font-serif-4), "Source Serif 4", Georgia, serif;
-  --container-site: 80rem;
+  --container-site: 75rem; /* 1200px content width, centred */
+  --gutter: clamp(1rem, 4vw, 2rem); /* one outer margin for nav, pages and footer */
   --ease-out: var(--ease-out);
 }
 
@@ -88,6 +89,7 @@ h1, h2, h3, .display, .ui {
 .body-s { font-size: 0.9375rem; }
 
 .rule { border-top: 1px solid var(--hairline); }
+.px-gutter { padding-left: var(--gutter); padding-right: var(--gutter); }
 .py-section { padding-block: var(--space-section); }
 .pt-section { padding-top: var(--space-section); }
 .pb-section { padding-bottom: var(--space-section); }

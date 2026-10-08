@@ -26,7 +26,7 @@ export function BarberFilter() {
       <p className="ui mt-3 text-[13px] text-ink-3" aria-live="polite">
         {tag ? `${list.length} of ${activeBarbers.length} barbers offer ${tagLabels[tag].toLowerCase()}.` : `All ${activeBarbers.length} barbers.`}
       </p>
-      <div className="mt-block grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
+      <div className="mt-block grid gap-8 lg:grid-cols-3 lg:gap-8">
         {list.map((b, i) => (
           <BarberCard key={b.slug} barber={b} source="barbers" priority={i === 0} />
         ))}

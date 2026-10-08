@@ -8,7 +8,7 @@ import { Logo } from "@/components/site/Logo";
 export function Footer() {
   return (
     <footer className="rule bg-paper">
-      <div className="mx-auto grid max-w-site gap-8 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:px-6 lg:px-8">
+      <div className="mx-auto grid max-w-site gap-10 px-gutter py-12 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
         <div>
           <Logo variant="lockup" height={76} alt="Dutch Cuts" />
           <address className="ui mt-5 not-italic text-[14px] leading-relaxed text-ink-2">
@@ -78,7 +78,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="mx-auto max-w-site px-4 pb-8 md:px-6 lg:px-8">
+      <div className="mx-auto max-w-site px-gutter pb-8">
         <p className="ui text-[12px] text-ink-3">
           © {new Date().getFullYear()} {shop.legalName}. Prices and hours shown as of {monthYear(shop.verifiedAt)} — live details on Booksy.
         </p>

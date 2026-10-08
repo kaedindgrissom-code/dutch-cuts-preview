@@ -39,16 +39,16 @@ export default function HomePage() {
 
       {/* HERO — the room, a statement, the facts that earn trust */}
       <section className="relative">
-        <Container className="grid gap-6 pt-3 md:grid-cols-12 md:gap-8 md:pt-6 lg:pt-8">
-          <div className="order-1 md:order-2 md:col-span-7">
-            <div className="photo grain relative aspect-[5/6] md:aspect-[4/5] lg:aspect-[4/3]">
+        <Container className="grid gap-8 pt-3 md:pt-6 lg:grid-cols-12 lg:gap-8 lg:pt-8">
+          <div className="order-1 lg:order-2 lg:col-span-7">
+            <div className="photo grain relative aspect-[5/6] sm:aspect-[4/3] lg:aspect-[4/3]">
               <Image
                 src="/shop/hero-mobile.jpg"
                 alt="Inside Dutch Cuts — the chairs under the hexagon lights at 2816 Bee Rd"
                 fill
                 priority
                 fetchPriority="high"
-                sizes="(min-width:768px) 58vw, 100vw"
+                sizes="(min-width:1024px) 58vw, 100vw"
                 className="object-cover object-[50%_55%]"
               />
               {/* the shop's mark, stamped on the room */}
@@ -58,11 +58,11 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="order-2 flex flex-col md:order-1 md:col-span-5 md:py-2">
+          <div className="order-2 mx-auto flex w-full max-w-[40rem] flex-col items-center text-center lg:order-1 lg:col-span-5 lg:mx-0 lg:max-w-none lg:items-start lg:py-2 lg:text-left">
             <Eyebrow>
               {shop.address.street} · {shop.address.city}, {shop.address.region}
             </Eyebrow>
-            <h1 className="display mt-5 text-[clamp(3rem,13vw,4.6rem)] md:text-[clamp(2.5rem,4.6vw,5.5rem)]">
+            <h1 className="display mt-5 text-[clamp(3rem,13vw,4.6rem)] sm:text-[clamp(3rem,7vw,4.6rem)] lg:text-[clamp(2.5rem,4.6vw,5.5rem)]">
               Fades &amp; blends
               <br />
               on Bee Road.
@@ -70,13 +70,13 @@ export default function HomePage() {
             <p className="body-l mt-5 max-w-[26rem] text-ink-2">
               Three barbers, each with his own chair and his own book. Pick the right one below and book straight on Booksy.
             </p>
-            <div className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+            <div className="mt-7 flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start">
               <BookNowButton source="hero" className="sm:min-w-40" />
               <ButtonLink href="/barbers" variant="secondary">
                 Meet the barbers
               </ButtonLink>
             </div>
-            <dl className="rule mt-8 grid grid-cols-3 gap-2 pt-5 sm:gap-3 md:mt-auto">
+            <dl className="rule mt-8 grid w-full grid-cols-3 gap-2 pt-5 text-center sm:gap-3 lg:mt-auto lg:text-left">
               <div>
                 <dt className="label text-ink-3">Booksy</dt>
                 <dd className="price mt-1 whitespace-nowrap text-[16px] sm:text-[17px]">
@@ -114,7 +114,7 @@ export default function HomePage() {
           }
           lede="Each barber runs his own book on Booksy, so prices, hours and policies are his. Here is who does what."
         />
-        <div className="mt-block grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
+        <div className="mt-block grid gap-8 lg:grid-cols-3 lg:gap-8">
           {activeBarbers.map((b, i) => (
             <Reveal key={b.slug} delay={i * 60}>
               <BarberCard barber={b} source="home" />
@@ -152,8 +152,8 @@ export default function HomePage() {
 
       {/* REVIEWS — words on the left, a chair on the right */}
       <Section>
-        <div className="grid gap-10 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-7">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-7">
             <Eyebrow>What people say</Eyebrow>
             <h2 className="display display-2 mt-4">
               {booksy.rating} from {booksy.count} reviews.
@@ -161,17 +161,17 @@ export default function HomePage() {
             <p className="mt-3 text-[18px] text-ink-2">
               On Booksy, with {google.rating.toFixed(1)} on Google. Read as of {asOf(shop.verifiedAt)}; excerpts quoted with attribution.
             </p>
-            <div className="mt-block grid gap-8 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
+            <div className="mt-block grid gap-8 sm:grid-cols-3">
               {homeQuotes.map((q) => (
                 <ReviewQuote key={q.quote} r={q} />
               ))}
             </div>
           </div>
-          <div className="relative md:col-span-5 md:min-h-[28rem]">
+          <div className="relative lg:col-span-5 lg:min-h-[28rem]">
             {/* On md+ the photo stretches to the height of the text column so the two columns end together */}
-            <div className="md:absolute md:inset-0">
-              <div className="photo relative aspect-[4/5] md:h-full md:aspect-auto">
-                <Image src="/shop/hero-desktop.jpg" alt="A barber at work inside Dutch Cuts" fill sizes="(min-width:768px) 40vw, 100vw" className="object-cover" />
+            <div className="lg:absolute lg:inset-0">
+              <div className="photo relative aspect-[4/5] sm:aspect-[16/10] lg:h-full lg:aspect-auto">
+                <Image src="/shop/hero-desktop.jpg" alt="A barber at work inside Dutch Cuts" fill sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
               </div>
             </div>
           </div>
@@ -227,8 +227,8 @@ export default function HomePage() {
 
       {/* FINAL CTA */}
       <section className="mt-section bg-ink text-paper">
-        <Container className="flex flex-col gap-8 py-14 md:flex-row md:items-center md:justify-between md:py-24">
-          <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-12">
+        <Container className="flex flex-col items-center gap-8 py-14 text-center md:flex-row md:items-center md:justify-between md:py-24 md:text-left">
+          <div className="flex flex-col items-center gap-8 md:flex-row md:items-center md:gap-12">
             <Logo variant="lockup" tone="paper" height={96} alt="Dutch Cuts" className="md:shrink-0" />
             <div>
               <h2 className="display display-2">Book your barber.</h2>

@@ -58,12 +58,12 @@ export function Nav() {
         scrolled && "shadow-[0_1px_0_0_color-mix(in_srgb,var(--brick)_60%,transparent)]",
       )}
     >
-      <nav aria-label="Primary" className={cx("mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-200 ease-[var(--ease-out)] md:px-6 lg:px-8", scrolled ? "h-14" : "h-16 md:h-[4.5rem]")}>
+      <nav aria-label="Primary" className={cx("mx-auto flex max-w-site items-center justify-between px-gutter transition-[height] duration-200 ease-[var(--ease-out)]", scrolled ? "h-14" : "h-16 lg:h-[4.5rem]")}>
         <Link href="/" className="flex items-center" aria-label="Dutch Cuts home">
-          <Logo variant="lockup-h" height={28} priority className="md:hidden" alt="" />
-          <Logo variant="lockup-h" height={32} priority className="hidden md:block" alt="" />
+          <Logo variant="lockup-h" height={28} priority className="lg:hidden" alt="" />
+          <Logo variant="lockup-h" height={32} priority className="hidden lg:block" alt="" />
         </Link>
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-8 lg:flex">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -79,7 +79,7 @@ export function Nav() {
           </a>
           <BookNowButton source="nav" size="sm" />
         </div>
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <BookNowButton source="nav-mobile" label="Book" size="sm" />
           <button
             type="button"
@@ -99,7 +99,7 @@ export function Nav() {
         aria-label="Menu"
         className="m-0 h-dvh max-h-none w-full max-w-none bg-paper p-0 backdrop:bg-ink/40 open:anim-fade"
       >
-        <div className="flex h-full flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3">
+        <div className="mx-auto flex h-full w-full max-w-site flex-col px-gutter pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3">
           <div className="flex h-10 items-center justify-between">
             <Logo variant="lockup-h" height={26} alt="Dutch Cuts" />
             <button type="button" onClick={() => setOpen(false)} className="ui grid h-11 w-11 place-items-center" aria-label="Close menu">
