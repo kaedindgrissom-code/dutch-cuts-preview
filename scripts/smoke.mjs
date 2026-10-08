@@ -79,7 +79,7 @@ for (const u of urls) {
 }
 
 // 2. required endpoints
-for (const p of ["/robots.txt", "/llms.txt", "/kb.json", "/opengraph-image", "/icon.svg"]) {
+for (const p of ["/robots.txt", "/llms.txt", "/kb.json", "/opengraph-image", "/icon.png"]) {
   const r = await get(`${base}${p}`);
   if (r.status !== 200) fail(`${p} -> ${r.status}`);
 }
