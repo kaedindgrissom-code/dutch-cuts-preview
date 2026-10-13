@@ -8,6 +8,8 @@ on:
   pull_request:
 jobs:
   quality:
+    # The public preview mirror carries no tests; the gate runs on the private repo only.
+    if: github.repository == 'kaedindgrissom-code/dutch-cuts'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
