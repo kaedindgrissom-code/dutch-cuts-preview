@@ -8,8 +8,8 @@ Date: 2026-10-08 · Built by BookedIQ (Claude Cowork session) · Status: **prosp
 |---|---|
 | Repository | https://github.com/kaedindgrissom-code/dutch-cuts (private, created 2026-10-08) |
 | Canonical branch | `main` |
-| Commits | 8 commits on `main` pushed 2026-10-08 via the GitHub API in batches; every source blob verified byte-for-byte against the local build (`git hash-object`). Latest content commit `5f37347`; this HANDOFF is the commit after it. `pnpm-lock.yaml` is **not** in the repo (sandbox transfer limit) — Vercel resolves from `package.json` ranges; run `pnpm install` locally and commit the lockfile on first clone. |
-| Deployment | Not yet. Vercel import of the repo is one click once pushed; no root-directory setting needed |
+| Commits | Everything needed to build is in `main`: source, `pnpm-lock.yaml`, `public/` photos and logo assets (committed 2026-10-13, every blob verified byte-for-byte against `scripts/fetch-photos.py` output), favicon. |
+| Deployment | Not yet — follow `docs/GO_LIVE.md` (import settings, env vars, domain, post-deploy checks). Preview: https://kaedindgrissom-code.github.io/dutch-cuts-preview/ |
 | Build status | `pnpm build` ✓ (Next 16.4, 16 static routes) |
 | Figma | https://www.figma.com/design/WfAHplrAEbLTg6E11FeI38 — tokens, 8 screens (home desktop + mobile, barbers, barber profile, gallery, services, visit, booking chooser) |
 
@@ -66,7 +66,7 @@ V1: shop line → Twilio (A2P) → Retell Conversation Flow (FAQ, barber routing
 
 Live on the site: the real logo, interior shots for the hero and Visit page, headshots for all three barbers, and 20 haircut tiles tagged by cut type — all the barbers' own Booksy uploads, cropped to the design-system ratios. Provenance per image is in `scripts/photos.json`; the gallery entries carry it in `source`. With photos in, mobile Lighthouse on `/` is 97 / 100 / 100 / 100, LCP 2.2 s, and the 52-test mobile+desktop suite passes.
 
-The image files themselves could not leave the sandbox (binary transfer refused), so the repo ships `scripts/fetch-photos.py` instead: after cloning, `pip install pillow requests && python3 scripts/fetch-photos.py` recreates `public/` byte-for-byte from the approved sources (verified in a clean directory), then commit `public/`. Vercel's build does not run it — commit the images once. The same script derives the logo assets (`public/brand/mark-*.png`, `wordmark-*.png`, `lockup-*.png`, `lockup-h-*.png`, in ink and paper) from the owner's Booksy logo and writes the favicon `src/app/icon.png`; the `<Logo>` component (`src/components/site/Logo.tsx`) is the only way the logo is placed — nav, mobile menu, hero stamp, final CTA, footer, Open Graph image and Apple touch icon.
+`public/` is committed (35 files, 5 MB). To regenerate from the approved sources: `pip install pillow requests && python3 scripts/fetch-photos.py` (skips files that already exist; delete a file to re-crop it). The same script derives the logo assets (`public/brand/mark-*.png`, `wordmark-*.png`, `lockup-*.png`, `lockup-h-*.png`, in ink and paper) from the owner's Booksy logo and writes the favicon `src/app/icon.png`; the `<Logo>` component (`src/components/site/Logo.tsx`) is the only way the logo is placed — nav, mobile menu, hero stamp, final CTA, footer, Open Graph image and Apple touch icon.
 
 ## Release standard (added 2026-10-08)
 
@@ -78,7 +78,7 @@ Screenshot critique → full redesign pass, founder-approved and shipped: face-a
 
 ## Revision 2.1 — alignment, mobile, logo, facts (2026-10-08)
 
-Mobile pass: hero shows the whole room on phones (5:6, no top crop), barber-page price table no longer overflows at 320px, work-tile captions sit under the photo on touch devices instead of covering the cut (hover-reveal kept on pointer devices), hero facts and section headers no longer wrap awkwardly. The owner's real logo now runs through the site (see Photos above). Facts re-audited against `research/TEAM_RESEARCH.md`; four over-reaches softened (Dutch's Hawaii line, "never rushed" applied to all three, Brian's kids inference, "near Skidaway Rd"). CI: lockfile committed, `typecheck` runs `next typegen` first; the Lighthouse perf budget is the one red step on shared runners (score tracks runner CPU — 60 on the GitHub runner vs 93–98 on a fast host for the same build).
+Mobile pass: hero shows the whole room on phones (5:6, no top crop), barber-page price table no longer overflows at 320px, work-tile captions sit under the photo on touch devices instead of covering the cut (hover-reveal kept on pointer devices), hero facts and section headers no longer wrap awkwardly. The owner's real logo now runs through the site (see Photos above). Facts re-audited against `research/TEAM_RESEARCH.md`; four over-reaches softened (Dutch's Hawaii line, "never rushed" applied to all three, Brian's kids inference, "near Skidaway Rd"). CI: lockfile committed, `typecheck` runs `next typegen` first; the in-CI Lighthouse run is advisory (founder decision 2026-10-13; the score tracks runner CPU — 60 on the GitHub runner vs 93–98 on a fast host for the same build); the binding perf gate is `weekly-smoke`, which runs the budgets against the deployed URL.
 
 ## Next step
 
@@ -88,6 +88,5 @@ Import the repo in Vercel (one click, no root-directory setting), set `NEXT_PUBL
 
 - Prices and hours drift (changed May→Oct 2026) — monthly validation is the mitigation.
 - Three conflicting shop-hours sources; site sidesteps by showing per-barber hours, but GBP should match before launch.
-- Photo files live only locally until `scripts/fetch-photos.py` is run and `public/` committed; until then the deployed site shows the typographic placeholders.
 - The Bananas claim is unverified; not on the site.
 - `pnpm-lock.yaml` is in the local commit; if the repo is populated without it, Vercel will resolve from `package.json` ranges (safe, slightly less reproducible).

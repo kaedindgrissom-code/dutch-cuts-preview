@@ -1,0 +1,25 @@
+# Weekly live check of the deployed site: sitemap, canonicals, headers, claims, every
+# internal and external link (Booksy business IDs must still resolve), then the Lighthouse
+# budgets against the real deployment — this is the binding performance gate (the in-CI run
+# on the shared runner is advisory). Set the SITE_URL repository variable once the domain is
+# live. Fails loudly; fix or re-run by hand with `node scripts/smoke.mjs <url>`.
+name: weekly-smoke
+on:
+  schedule:
+    - cron: "17 11 * * 1" # Mondays 07:17 ET
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://dutchcuts.com' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: node scripts/smoke.mjs "$SITE_URL"
+      - run: pnpm install --frozen-lockfile
+      - name: Lighthouse budgets on the live site
+        run: node scripts/lighthouse-ci.mjs "$SITE_URL"

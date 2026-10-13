@@ -1,0 +1,50 @@
+# Release gate. Every push and PR: typecheck, lint, build, claims gate, Playwright + axe
+# (mobile + desktop), Lighthouse budgets. Nothing deploys from here — Vercel deploys on
+# merge to main; this is the check that has to be green first.
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NEXT_PUBLIC_SITE_URL: https://dutchcuts.com
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile || pnpm install
+      - name: Photos (approved sources, skipped when public/ is committed)
+        run: |
+          if [ ! -f public/work/w01.jpg ]; then
+            pip install --quiet pillow requests && python3 scripts/fetch-photos.py
+          fi
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm build
+      - run: node scripts/claims-check.mjs
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Playwright + axe (mobile + desktop)
+        run: pnpm exec playwright test --project=mobile --project=desktop
+      # Founder decision 2026-10-13: advisory on the shared runner. The perf score tracks runner CPU
+      # (same build: 60 here, 93–98 on a fast host). a11y/SEO/CLS still fail loudly in the log; the
+      # binding perf gate is `node scripts/lighthouse-ci.mjs https://<deployed-url>` in weekly-smoke.
+      - name: Lighthouse budgets (advisory on shared runners)
+        continue-on-error: true
+        run: |
+          pnpm start -p 3000 & sleep 4
+          node scripts/lighthouse-ci.mjs http://localhost:3000
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: qa-artifacts
+          path: |
+            playwright-report
+            test-results
+            qa/lighthouse/ci
+          retention-days: 7
