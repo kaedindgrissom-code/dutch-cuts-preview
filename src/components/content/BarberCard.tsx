@@ -49,7 +49,7 @@ export function BarberCard({ barber, source, priority }: { barber: Barber; sourc
       </dl>
       <div className="col-span-2 flex items-center gap-4 lg:mt-4">
         <BookBarberButton barber={barber} source={source} className="flex-1" />
-        <Link href={href} className="ui shrink-0 text-[14px] ul-accent">
+        <Link href={href} className="ui inline-flex min-h-11 shrink-0 items-center px-2 text-[14px] ul-accent">
           Profile
         </Link>
       </div>

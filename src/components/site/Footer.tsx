@@ -16,7 +16,7 @@ export function Footer() {
             <br />
             {shop.address.city}, {shop.address.region} {shop.address.postalCode}
             <br />
-            <a href={`tel:${shop.phone}`} className="link">
+            <a href={`tel:${shop.phone}`} className="link inline-block py-2">
               {shop.phoneDisplay}
             </a>
           </address>
@@ -24,15 +24,15 @@ export function Footer() {
         </div>
         <div>
           <p className="label eyebrow text-ink-3">Barbers</p>
-          <ul className="ui mt-3 space-y-2 text-[15px]">
+          <ul className="ui mt-2 text-[15px]">
             {activeBarbers.map((b) => (
-              <li key={b.slug}>
+              <li key={b.slug} className="py-2">
                 <Link href={`/barbers/${b.slug}`} className="ul-accent">
                   {b.publicName}
                 </Link>
               </li>
             ))}
-            <li>
+            <li className="py-2">
               <Link href="/barbers" className="ul-accent">
                 Find your barber
               </Link>
@@ -41,35 +41,35 @@ export function Footer() {
         </div>
         <div>
           <p className="label eyebrow text-ink-3">Follow</p>
-          <ul className="ui mt-3 space-y-2 text-[15px]">
+          <ul className="ui mt-2 text-[15px]">
             {shop.socials.instagram && (
-              <li>
+              <li className="py-2">
                 <ExtLink href={shop.socials.instagram} event="social_click" props={{ network: "instagram", location: "footer" }}>
                   Instagram
                 </ExtLink>
               </li>
             )}
             {shop.socials.facebook && (
-              <li>
+              <li className="py-2">
                 <ExtLink href={shop.socials.facebook} event="social_click" props={{ network: "facebook", location: "footer" }}>
                   Facebook
                 </ExtLink>
               </li>
             )}
             {shop.socials.tiktok && (
-              <li>
+              <li className="py-2">
                 <ExtLink href={shop.socials.tiktok} event="social_click" props={{ network: "tiktok", location: "footer" }}>
                   TikTok
                 </ExtLink>
               </li>
             )}
-            <li>
+            <li className="py-2">
               <ExtLink href={shop.booking.umbrellaUrl} event="social_click" props={{ network: "booksy", location: "footer" }}>
                 Booksy
               </ExtLink>
             </li>
             {flags.googleReviewUrl && (
-              <li>
+              <li className="py-2">
                 <ExtLink href={flags.googleReviewUrl} event="social_click" props={{ network: "google-review", location: "footer" }}>
                   Leave a Google review
                 </ExtLink>

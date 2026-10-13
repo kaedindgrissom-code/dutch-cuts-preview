@@ -130,7 +130,7 @@ export default function HomePage() {
             <Eyebrow>The work</Eyebrow>
             <h2 className="display display-3 mt-3">Recent cuts from the chairs</h2>
           </div>
-          <Link href="/gallery" className="ui ul-accent shrink-0 whitespace-nowrap text-[15px] sm:pb-1">
+          <Link href="/gallery" className="ui ul-accent inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[15px]">
             See the gallery
           </Link>
         </Container>
