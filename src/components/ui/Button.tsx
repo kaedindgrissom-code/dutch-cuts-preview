@@ -5,7 +5,7 @@ type Variant = "primary" | "secondary" | "inverse";
 type Size = "md" | "sm";
 
 const base =
-  "ui inline-flex items-center justify-center gap-2 rounded-[2px] font-medium leading-none whitespace-nowrap transition-colors duration-150 ease-[var(--ease-out)] select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-haint";
+  "ui inline-flex items-center justify-center gap-2 rounded-[2px] font-medium leading-none whitespace-nowrap transition-[color,background-color,border-color,transform] duration-150 ease-[var(--ease-out)] select-none active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-haint";
 const variants: Record<Variant, string> = {
   primary: "bg-ink text-paper hover:bg-haint-deep active:bg-haint-deep",
   secondary: "border border-ink text-ink hover:bg-ink hover:text-paper",

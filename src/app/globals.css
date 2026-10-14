@@ -106,7 +106,8 @@ h1, h2, h3, .display, .ui {
 /* Photo system: 4:5, warm grade, hairline mat, hover lift of the caption */
 .photo { position: relative; overflow: hidden; background: var(--paper-2); border: 1px solid var(--hairline); }
 .photo img { transition: transform 600ms var(--ease-out); }
-.photo-hover:hover img, .photo-hover:focus-within img { transform: scale(1.03); }
+@media (hover: hover) and (pointer: fine) { .photo-hover:hover img { transform: scale(1.03); } }
+.photo-hover:focus-within img { transform: scale(1.03); }
 .photo-tag {
   position: absolute; left: 0; right: 0; bottom: 0;
   display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
