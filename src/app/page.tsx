@@ -23,10 +23,11 @@ export const metadata = pageMeta({
   path: "/",
 });
 
+// One quote per barber, taken from his own review page, shown under his face.
 const homeQuotes = [
-  activeBarbers[0].reviewExcerpts[0],
-  activeBarbers[1].reviewExcerpts[2],
-  activeBarbers[2].reviewExcerpts[2],
+  { barber: activeBarbers[0], r: activeBarbers[0].reviewExcerpts[0] },
+  { barber: activeBarbers[1], r: activeBarbers[1].reviewExcerpts[2] },
+  { barber: activeBarbers[2], r: activeBarbers[2].reviewExcerpts[2] },
 ];
 
 export default function HomePage() {
@@ -41,7 +42,7 @@ export default function HomePage() {
       <section className="relative">
         <Container className="grid gap-8 pt-3 md:pt-6 lg:grid-cols-12 lg:gap-8 lg:pt-8">
           <div className="order-1 lg:order-2 lg:col-span-7">
-            <div className="photo grain relative aspect-[5/6] sm:aspect-[4/3] lg:aspect-[4/3]">
+            <div className="photo grain relative aspect-[4/3]">
               <Image
                 src="/shop/hero-mobile.jpg"
                 alt="Inside Dutch Cuts — the chairs under the hexagon lights at 2816 Bee Rd"
@@ -123,6 +124,13 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* IN THE CHAIR — one edge-to-edge photo between choosing a barber and seeing the work */}
+      <section className="mt-section" aria-label="Inside the shop">
+        <div className="relative aspect-[4/3] overflow-hidden bg-paper-2 md:aspect-[2/1] lg:aspect-[5/2]">
+          <Image src="/shop/hero-desktop.jpg" alt="A barber at work inside Dutch Cuts" fill sizes="100vw" className="object-cover object-[55%_30%]" />
+        </div>
+      </section>
+
       {/* THE WORK */}
       <section className="pt-section">
         <Container className="mb-5 flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -150,31 +158,21 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* REVIEWS — words on the left, a chair on the right */}
+      {/* REVIEWS — one quote per barber, under his face */}
       <Section>
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-7">
-            <Eyebrow>What people say</Eyebrow>
-            <h2 className="display display-2 mt-4">
-              {booksy.rating} from {booksy.count} reviews.
-            </h2>
-            <p className="mt-3 text-[18px] text-ink-2">
-              On Booksy, with {google.rating.toFixed(1)} on Google. Read as of {asOf(shop.verifiedAt)}; excerpts quoted with attribution.
-            </p>
-            <div className="mt-block grid gap-8 sm:grid-cols-3">
-              {homeQuotes.map((q) => (
-                <ReviewQuote key={q.quote} r={q} />
-              ))}
-            </div>
-          </div>
-          <div className="relative lg:col-span-5 lg:min-h-[28rem]">
-            {/* On md+ the photo stretches to the height of the text column so the two columns end together */}
-            <div className="lg:absolute lg:inset-0">
-              <div className="photo relative aspect-[4/5] sm:aspect-[16/10] lg:h-full lg:aspect-auto">
-                <Image src="/shop/hero-desktop.jpg" alt="A barber at work inside Dutch Cuts" fill sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
-              </div>
-            </div>
-          </div>
+        <Eyebrow>What people say</Eyebrow>
+        <h2 className="display display-2 mt-4">
+          {booksy.rating} from {booksy.count} reviews.
+        </h2>
+        <p className="mt-3 max-w-[40rem] text-[18px] text-ink-2">
+          On Booksy, with {google.rating.toFixed(1)} on Google. Read as of {asOf(shop.verifiedAt)}; excerpts quoted with attribution.
+        </p>
+        <div className="mt-block grid gap-10 sm:grid-cols-3 sm:gap-8">
+          {homeQuotes.map(({ barber, r }, i) => (
+            <Reveal key={r.quote} delay={i * 60}>
+              <ReviewQuote r={r} barber={barber} />
+            </Reveal>
+          ))}
         </div>
       </Section>
 
@@ -226,8 +224,11 @@ export default function HomePage() {
       </Section>
 
       {/* FINAL CTA */}
-      <section className="mt-section bg-ink text-paper">
-        <Container className="flex flex-col items-center gap-8 py-14 text-center md:flex-row md:items-center md:justify-between md:py-24 md:text-left">
+      <section className="relative isolate mt-section overflow-hidden bg-ink text-paper">
+        <Image src="/shop/hero-mobile.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover object-[50%_40%]" />
+        {/* ink scrim: dark enough for AA text anywhere on the photo */}
+        <div className="absolute inset-0 -z-10 bg-ink/90" aria-hidden="true" />
+        <Container className="relative flex flex-col items-center gap-8 py-14 text-center md:flex-row md:items-center md:justify-between md:py-24 md:text-left">
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-center md:gap-12">
             <Logo variant="lockup" tone="paper" height={96} alt="Dutch Cuts" className="md:shrink-0" />
             <div>
